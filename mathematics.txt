@@ -1,0 +1,46 @@
+Parameters:
+    granularised feelings towards each person in separate variables
+---------------------------------------------------------
+W(t + 1) = w + rwW(t) + IHM(H(t))
+
+SPAFF coding system
+
+graph IHM vs H(t):
+reaction on positive side is not same as negative
+The position of the threshold is important
+
+Test results in the vid 
+---------------------------------------------------------------
+
+behaviour = F( attitude )
+attitude = F( thoughts, dharonaaboutotherperson, whatknownaboutotherperson, socialisingAbility, sympathy, judgementAbility, -commsSkills-, paramsOfOther )
+commsSkills = F( socializingSkills )
+
+xtraParamsOther:
+Attraction, attention capturing ability, expressions, body movements
+
+diff reaction and situation handling of others
+
+THINK ABOUT RANDOMNESS behaviour of a person irrespective of a response from the other side, change of parameters while not interacting
+
+ACTION_VARIABLES
+assumptionAboutOtherPerson : slider from -{} to +{}
+thoughts : 
+socialisingAbility : slider from 0 to 100
+judgementAbility : slider from 0 to 100
+attraction: slider from -{} to +{}
+expressionsAndBodyMovements: slider from -{} to +{}
+bodyLanguage : 
+
+GROUP_VARIABLES
+familiarness : 
+
+INDIVIDUAL_VARIABLES
+
+
+
+
+
+
+
+
