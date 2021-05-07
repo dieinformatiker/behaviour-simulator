@@ -1,4 +1,5 @@
 public class Global {
+    protected static boolean running = false;
     protected static String command;
 
     // list of interacting entities: MUST be left EMPTY

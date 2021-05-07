@@ -17,7 +17,6 @@ import java.util.StringTokenizer;
 
 public class Console implements Runnable {
     
-    protected boolean running = false;
     protected Thread th;
     
     protected String readCommand () {
@@ -26,7 +25,6 @@ public class Console implements Runnable {
         try {
             System.out.print ("BS> ");                                        // prompt
             Global.command = stdin.readLine ();                               // store command in variable, kinda uselss
-            evaluate (Global.command);                                        // evaluates the command
             return Global.command;                                            // return that command, also useless
         } catch (java.io.IOException ex) {
             Global.printerr (ex.toString());
@@ -71,6 +69,9 @@ public class Console implements Runnable {
             Global.interacting[0] = sT.nextToken();
             Global.interacting[1] = sT.nextToken();
         }
+        else if (cmd.equalsIgnoreCase ("EXIT")) {
+            Global.running = false;
+        }
     }
     
     /**
@@ -78,8 +79,9 @@ public class Console implements Runnable {
      */
     @Override
     public void run () {
-        while (running) {
-           readCommand ();
+        while (Global.running) {
+            if (!readCommand ().equalsIgnoreCase(""))
+                evaluate (Global.command);                                    // evaluates the command
         }
         //Calls new Sim.stop () to close thread.
         stop ();
@@ -88,13 +90,11 @@ public class Console implements Runnable {
     //Method responsible for starting thread.
     public synchronized void start () {
         /*Prevents errors by not starting thread if
-         *it's already running.
+         *it's already Global.running.
          */
-        if (running) {
+        if (Global.running) {
             return;
         }
-        //Sets a flag variable true to denote thread is running.
-        running = true;
         //Defines new Thread object
         th = new Thread (this);
         /*Start Thread th, following method exists in a
@@ -107,13 +107,13 @@ public class Console implements Runnable {
     //Method responsible for stopping thread
     public synchronized void stop () {
         /*Prevents errors by not closing thread if
-         *it's already not running
+         *it's already not Global.running
          */
-        if (!running) {
+        if (!Global.running) {
             return;
         }
-        //Sets a flag variable false to denote thread is not running
-        running = false;
+        //Sets a flag variable false to denote thread is not Global.running
+        Global.running = false;
         /*Safely closes the thread
          *NOTE that stop method is deprecated
          *NOTE join () method always throws InterruptedException

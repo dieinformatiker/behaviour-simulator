@@ -22,6 +22,6 @@ class Main {
         System.out.println ("Behaviour Simulator v2021.5.7");
         System.out.println ("GNU General Public Lisence (GPL) v3.0+\n");
         console.start ();
-        // sim.start ();
+        sim.start ();
     }
 }
