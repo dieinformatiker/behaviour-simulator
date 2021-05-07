@@ -1,0 +1,56 @@
+btn_launch.addActionListener((ActionEvent ae) -> {
+            if(!launch){
+                txtPnl_log.setText("> Thrust entered = " + txt_thrust.getText());
+                txtPnl_log.setText("> Analyzing launch thrust....\n");
+                try {
+                    if(Long.parseLong(txt_thrust.getText()) < 10) {
+                        txtPnl_log.setText("[E] NOT ENOUGH THRUST. MINIMUM: 10 ");
+                    }
+                    else if(Long.parseLong(txt_thrust.getText()) < 45) {
+                        vThrust = Long.parseLong(txt_thrust.getText());
+                        txtPnl_log.setText("THRUST OPTIMUM\n");
+                        txtPnl_log.setText("ROCKET LAUNCHED - THRUSTING: "+vThrust);
+                        launch=true;
+                    }
+                    else if(Long.parseLong(txt_thrust.getText()) >= 45 && Long.parseLong(txt_thrust.getText()) <= 100) {
+                        vThrust = Long.parseLong(txt_thrust.getText());
+                        txtPnl_log.setText("[WARNING] VELOCITY TOO HIGH. CREW SHOULD NOT SURVIVE");
+                        txtPnl_log.setText("\nROCKET LAUNCHED - THRUSTING: "+vThrust);
+                        launch=true;
+                    }
+                    else
+                        txtPnl_log.setText("[E] INVALID ASSINGMENT: for thrust= "+txt_thrust.getText()+"\n");
+                } catch (NumberFormatException numberFormatException) {
+                    txtPnl_log.setText("[E] INVALID ASSINGMENT: "+numberFormatException+"\n");
+                }
+            }
+        });
+        
+        //Event actions: Launches rocket
+        btn_launch.addActionListener((ActionEvent ae) -> {
+            if(btn_launch.getText().equals("CONFIRM THRUST")){
+                try {
+                    if(Long.parseLong(txt_thrust.getText()) <= 100){
+                        vThrust = Long.parseLong(txt_thrust.getText());
+                        txtPnl_log.setText("> Thrust entered = " + txt_thrust.getText());
+                    }
+                    else
+                        txtPnl_log.setText("[E] INVALID ASSINGMENT: for thrust= "+txt_thrust.getText()+"\n");
+                } catch (NumberFormatException numberFormatException) {
+                    txtPnl_log.setText("[E] INVALID ASSINGMENT: "+numberFormatException);
+                }
+            }    
+        });
+        
+        //Event actions: Release exploration module
+        btn_rslModule.addActionListener((ActionEvent ae) -> {
+            txtPnl_log.setText("\nCOMMAND RECIEVED: Eject module");
+            txtPnl_log.setText("> Executing command....");
+            ModuleReleased=true;
+        });
+        
+        //
+        btn_rslLander.addActionListener((ActionEvent ae) -> {
+            LanderReleased=true;
+        });
+    }
