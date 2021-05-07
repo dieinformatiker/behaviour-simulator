@@ -37,6 +37,49 @@ familiarness :
 
 INDIVIDUAL_VARIABLES
 
+----------------------------------------------------------------------------------------------
+
+VARIABLES_FOR_ENTITY_INITIALIZATION:
+
+1. INDIVIDUAL_NATIVE_VARIABLES
+    a. judgementAbility
+    b. socialisingAbility
+    c. happiness
+    d. affinityHappiness
+    e. physicalAttractiveness
+    f. interactionExitCoeffPos
+    g. interactionExitCoeffNeg
+    h. emotionManagement
+    bodyLanguageAccuracy * 
+    sexAppeal *
+
+2. GROUP_NATIVE_VARIABLES ( one set for each element of the power set of n entities, just two entities for now therefore only one set required)
+    a. familiarity = F( number of interactions )
+    b. memory += t * derivMemory
+    c. memoryArray size = number of interactions
+            The memory array insertion functions should delete the least impactful memories
+
+3. INDIVIDUAL_ENVIRONMENT_VARIABLES
+    a. globalPositivity
+
+4. ACTION_VARIABLES
+    a. actionSelf = 
+    b. actionGroupStatusInteracting( element of the power set ) =  3a + avg(1) + 2a * 2b + F(4a) + actionGroupStatusInteracting( other person ) + actionGroupStatusNotInteracting consider 1f
+       if > interactionExitCoeffPos, stop interaction
+       if < interactionExitCoeffNeg, stop interaction
+    c. actionGroupStatusNotInteracting( element of power set )
+
+5. CHANGE_VARIABLES
+    a. derivHappiness = avg( EXP_WEIGHT_SUM_AVG( memoryArray ) + avg(1) + globalPositivity( little effect ) )
+    b. derivMemory = actionGroupStatusNotInteracting( less effect ) + actionGroupStatusInteracting( other person ) - actionGroupStatusInteracting( me )  ; stress on the extremes of actions
+    c. derivGlobalPositivity = derivHappiness / r
+
+Environment actions to be added
+
+---------------------------------------------------------------------------------------------
+
+
+
 
 
 
