@@ -4,7 +4,7 @@
  * @lisence GNU GPL v3.0+
  */
 class Main {
-
+    
     //main method that begins software execution.
     public static void main (String[] args){
         /*Create new Sim object and start thread,
@@ -21,7 +21,9 @@ class Main {
          */
         System.out.println ("Behaviour Simulator v2021.5.7");
         System.out.println ("GNU General Public Lisence (GPL) v3.0+\n");
+        if (!args[0].equalsIgnoreCase ("-NoGUI")) {
+            sim.start ();
+        }
         console.start ();
-        sim.start ();
     }
 }

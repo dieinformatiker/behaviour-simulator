@@ -23,6 +23,7 @@ public class Entity {
                 pr = new PrintWriter (
                 new FileWriter ("Data/Entities/" + name + "/" + atr, false)); // overwrites attribute file at name directory
                 pr.write (Integer.toString(val));                             // actual writing
+                pr.close ();
             } catch (Exception e) {
                 Global.printerr ("error: no such person: " + name);
             }

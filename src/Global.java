@@ -1,5 +1,5 @@
 public class Global {
-    protected static boolean running = false;
+    
     protected static String command;
 
     // list of interacting entities: MUST be left EMPTY
@@ -9,7 +9,7 @@ public class Global {
     };
     // list of attribute names
     protected static final String[] attributes = {
-        "",
+        "happiness",
         "",
         "",
         ""

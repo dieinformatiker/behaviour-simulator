@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 public class Console implements Runnable {
     
     protected Thread th;
+    protected boolean running = false;
     
     protected String readCommand () {
         BufferedReader stdin = new BufferedReader (
@@ -36,7 +37,7 @@ public class Console implements Runnable {
         StringTokenizer sT = new StringTokenizer (command, " \n");            // delimiters
         String cmd = sT.nextToken();
         if (cmd.equalsIgnoreCase ("CREATE")) {                                // if command is to create entity
-            File dir = new File ("Data/Entities/" + sT.nextToken());          // pass th directory path
+            File dir = new File ("Data/Entities/" + sT.nextToken() + "/");    // pass th directory path
             dir.mkdir ();                                                     // creates a directory for that named entity
         }
         else if (cmd.equalsIgnoreCase ("DEL")) {
@@ -69,8 +70,8 @@ public class Console implements Runnable {
             Global.interacting[0] = sT.nextToken();
             Global.interacting[1] = sT.nextToken();
         }
-        else if (cmd.equalsIgnoreCase ("EXIT")) {
-            Global.running = false;
+        else {
+            Global.printerr ("error: no such command: " + cmd);
         }
     }
     
@@ -79,7 +80,7 @@ public class Console implements Runnable {
      */
     @Override
     public void run () {
-        while (Global.running) {
+        while (running) {
             if (!readCommand ().equalsIgnoreCase(""))
                 evaluate (Global.command);                                    // evaluates the command
         }
@@ -90,11 +91,13 @@ public class Console implements Runnable {
     //Method responsible for starting thread.
     public synchronized void start () {
         /*Prevents errors by not starting thread if
-         *it's already Global.running.
+         *it's already running.
          */
-        if (Global.running) {
+        if (running) {
             return;
         }
+        // sets runnig flag true
+        running = true;
         //Defines new Thread object
         th = new Thread (this);
         /*Start Thread th, following method exists in a
@@ -107,13 +110,13 @@ public class Console implements Runnable {
     //Method responsible for stopping thread
     public synchronized void stop () {
         /*Prevents errors by not closing thread if
-         *it's already not Global.running
+         *it's already not running
          */
-        if (!Global.running) {
+        if (!running) {
             return;
         }
-        //Sets a flag variable false to denote thread is not Global.running
-        Global.running = false;
+        //Sets a flag variable false to denote thread is not running
+        running = false;
         /*Safely closes the thread
          *NOTE that stop method is deprecated
          *NOTE join () method always throws InterruptedException

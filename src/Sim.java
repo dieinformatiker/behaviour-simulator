@@ -9,6 +9,7 @@ class Sim implements Runnable {
     protected final int width, height;
     protected int CNVS_WIDTH;
     protected int CNVS_HEIGHT;
+    protected boolean running = false;
     
     //Global object declarations.
     protected GUI ui;
@@ -80,7 +81,7 @@ class Sim implements Runnable {
         long lastTime = System.nanoTime ();
         double timePerFrame = 1000000000 / FPS;              //frames
         double timePerUpdate = 1000000000 / 60;              //60 Hz updater
-        while (Global.running) {
+        while (running) {
             now = System.nanoTime ();
             deltaUpdate += (now - lastTime) / timePerUpdate;
             deltaFrames += (now - lastTime) / timePerFrame;
@@ -105,13 +106,13 @@ class Sim implements Runnable {
     //Method responsible for starting thread.
     public synchronized void start () {
         /*Prevents errors by not starting thread if
-         *it's already Global.running.
+         *it's already running.
          */
-        if (Global.running) {
+        if (running) {
             return;
         }
-        //Sets a flag variable true to denote thread is Global.running.
-        Global.running = true;
+        //Sets a flag variable true to denote thread is running.
+        running = true;
         //Defines new Thread object
         th = new Thread (this);
         /*Start Thread th, following method exists in a
@@ -124,13 +125,13 @@ class Sim implements Runnable {
     //Method responsible for stopping thread
     public synchronized void stop () {
         /*Prevents errors by not closing thread if
-         *it's already not Global.running
+         *it's already not running
          */
-        if (!Global.running) {
+        if (!running) {
             return;
         }
-        //Sets a flag variable false to denote thread is not Global.running
-        Global.running = false;
+        //Sets a flag variable false to denote thread is not running
+        running = false;
         /*Safely closes the thread
          *NOTE that stop method is deprecated
          *NOTE join () method always throws InterruptedException
